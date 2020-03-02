@@ -1,0 +1,23 @@
+{
+  "name": "sampler",
+  "version": "0.1.0",
+  "description": "A sampler for drums or other sounds",
+  "main": "app/index.html",
+  "scripts": {
+    "start": "browser-sync app -w",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxrpeterson/sampler.git"
+  },
+  "author": "Max Peterson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/maxrpeterson/sampler/issues"
+  },
+  "homepage": "https://github.com/maxrpeterson/sampler#readme",
+  "devDependencies": {
+    "browser-sync": "^2.26.7"
+  }
+}
