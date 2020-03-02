@@ -19,5 +19,8 @@
   "homepage": "https://github.com/maxrpeterson/sampler#readme",
   "devDependencies": {
     "browser-sync": "^2.26.7"
+  },
+  "dependencies": {
+    "tone": "^13.8.25"
   }
 }
