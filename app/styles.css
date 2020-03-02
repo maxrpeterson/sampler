@@ -1,0 +1,85 @@
+:root {
+  /* colors */
+  --dark: #333;
+
+  /* sizing */
+  --outer-y-padding: 15vmin;
+  --outer-x-padding: 8vmin;
+  --pad-gutter: 8vmin;
+  --pad-min-size: 100px;
+  --pad-max-size: 1fr;
+  --pad-size: minmax(var(--pad-min-size), var(--pad-max-size));
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-size: 16px;
+  background-color: var(--dark);
+}
+
+button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  width: auto;
+  overflow: visible;
+  background: transparent;
+
+  /* inherit font & color from ancestor */
+  color: inherit;
+  font: inherit;
+
+  /* Normalize `line-height`. Cannot be changed from `normal` in Firefox 4+. */
+  line-height: normal;
+
+  /* Corrects font smoothing for webkit */
+  -webkit-font-smoothing: inherit;
+  -moz-osx-font-smoothing: inherit;
+
+  /* Corrects inability to style clickable `input` types in iOS */
+  -webkit-appearance: none;
+}
+
+/* Remove excess padding and border in Firefox 4+ */
+&::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.pad-grid {
+  height: calc(100vh - var(--outer-y-padding));
+  padding: var(--outer-y-padding) var(--outer-x-padding);
+  display: grid;
+  grid-gap: var(--pad-gutter);
+  align-items: start;
+  justify-content: center;
+  grid-template-columns: repeat(auto-fill, var(--pad-size));
+  grid-auto-rows: auto;
+}
+
+.pad-wrapper {
+  position: relative;
+  padding-top: 100%;
+}
+
+.pad {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  border: none;
+  border-radius: 3px;
+  background-color: cadetblue;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+}
+
+.pad:active {
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.5) inset;
+}
