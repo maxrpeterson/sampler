@@ -27,6 +27,6 @@
     "eslint-plugin-standard": "^4.0.1"
   },
   "dependencies": {
-    "tone": "^13.8.25"
+    "tone": "^14.7.58"
   }
 }
