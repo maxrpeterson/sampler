@@ -1,21 +1,22 @@
 /* global Tone */
 import './Tone.js'
 
-const kickPlayer = new Tone.Player('samples/DX Bass 8 Med.wav').toMaster()
-const clapPlayer = new Tone.Player('samples/DX Clap 16.wav').toMaster()
-console.log(kickPlayer)
+const kickUrl = 'samples/DX Bass 8 Med.wav'
+
+const kickSampler = new Tone.Sampler({
+  urls: { A1: 'samples/DX Bass 8 Med.wav' },
+}).toDestination()
+const clapSampler = new Tone.Sampler({
+  urls: { A1: 'samples/DX Clap 16.wav' },
+}).toDestination()
+// const hihatClosedSampler = new Tone.Sampler('samples/DX Hi-Hat Closed 14.wav').toDestination()
 
 const kick = document.querySelector('.js-pad-kick')
 const clap = document.querySelector('.js-pad-clap')
 
-console.log(kick)
-
 function startPlayer(player) {
-  if (player.state === 'started') {
-    player.restart()
-  } else {
-    player.start()
-  }
+  // player.releaseAll(0)
+  player.triggerAttack('A1', 0)
 }
 
 function play(player) {
@@ -30,7 +31,7 @@ function play(player) {
   }
 }
 
-kick.addEventListener('touchstart', play(kickPlayer))
-kick.addEventListener('mousedown', play(kickPlayer))
-clap.addEventListener('touchstart', play(clapPlayer))
-clap.addEventListener('mousedown', play(clapPlayer))
+kick.addEventListener('touchstart', play(kickSampler))
+kick.addEventListener('mousedown', play(kickSampler))
+clap.addEventListener('touchstart', play(clapSampler))
+clap.addEventListener('mousedown', play(clapSampler))
