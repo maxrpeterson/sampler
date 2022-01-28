@@ -7,21 +7,22 @@
     <link rel="stylesheet" href="styles.css">
   </head>
   <body>
+    <button class="js-start">start audio</button>
+
+    <div class="audio-input">
+      <label for="audio-input-select">Choose Audio Input Source</label>
+      <select id="audio-input-select">
+        <option value="default">default</option>
+      </select>
+
+    </div>
 
     <div class="app-container">
       <div class="pad-grid">
-        <div class="pad-wrapper">
-          <button class="pad js-pad-kick"></button>
-        </div>
-        <div class="pad-wrapper">
-          <button class="pad js-pad-clap"></button>
-        </div>
-        <div class="pad-wrapper">
-          <button class="pad js-pad-hihat-closed"></button>
-        </div>
-        <div class="pad-wrapper">
-          <button class="pad js-pad-hihat-closed-native"></button>
-        </div>
+        <button class="pad js-pad-kick"></button>
+        <button class="pad js-pad-clap"></button>
+        <button class="pad js-pad-3"></button>
+        <button class="pad js-pad-4 record"></button>
       </div>
     </div>
 

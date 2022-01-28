@@ -4,7 +4,7 @@
   "description": "A sampler for drums or other sounds",
   "main": "app/index.html",
   "scripts": {
-    "start": "browser-sync 'app' 'node_modules/tone/build/'  -w",
+    "start": "browser-sync start -c .browser-sync.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,8 +19,8 @@
   "homepage": "https://github.com/maxrpeterson/sampler#readme",
   "devDependencies": {
     "browser-sync": "^2.26.7",
-    "eslint": "^6.8.0",
-    "eslint-config-standard": "^14.1.0",
+    "eslint": "^7.32.0",
+    "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
