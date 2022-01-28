@@ -99,7 +99,7 @@ function assignToUserSampler() {
 
 pad4.addEventListener('touchstart', preventDefaultThen(record))
 pad4.addEventListener('mousedown', preventDefaultThen(record))
-pad4.addEventListener('touchstop', preventDefaultThen(assignToUserSampler))
+pad4.addEventListener('touchend', preventDefaultThen(assignToUserSampler))
 pad4.addEventListener('mouseup', preventDefaultThen(assignToUserSampler))
 
 // const meter = new Tone.Meter()
