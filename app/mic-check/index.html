@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Sampler</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <button class="start-audio js-start">start audio</button>
+
+    <div class="audio-input">
+      <label for="audio-input-select">Choose Audio Input Source</label>
+      <select id="audio-input-select">
+        <option value="default">default</option>
+      </select>
+
+      <output class="audio-input-meter"></output>
+    </div>
+
+    <script type="module" src="/src/micCheck.js"></script>
+  </body>
+</html>
