@@ -28,12 +28,13 @@ const clapSampler = new Tone.Sampler({
 }).toDestination()
 // const hihatClosedSampler = new Tone.Sampler('samples/DX Hi-Hat Closed 14.wav').toDestination()
 
-const userSampler = new Tone.Sampler({
-  release: 0.2,
-}).toDestination()
+const userBuffer = new Tone.ToneAudioBuffer()
+
+let userSampler
 
 window.kickSampler = kickSampler
 window.userSampler = userSampler
+window.userBuffer = userBuffer
 
 const kick = document.querySelector('.js-pad-kick')
 const clap = document.querySelector('.js-pad-clap')
@@ -51,31 +52,83 @@ function stop(player) {
   })
 }
 
+function playBuffer(buffer) {
+  if (userSampler && userSampler.state === 'started') {
+    userSampler.stop(Tone.now())
+  }
+  userSampler = new Tone.ToneBufferSource({
+    url: buffer,
+    // playbackRate: Tone.intervalToFrequencyRatio(-2),
+  }).toDestination()
+  userSampler.start(Tone.now(), /* offset */ 0)
+}
+
+// function stopBuffer(buffer) {
+//   userSampler.stop(Tone.now())
+// }
+
 console.log('kickSampler buffer: ', kickSampler._buffers._buffers.get('33')._buffer)
 
 kick.addEventListener('touchstart', play(kickSampler))
 kick.addEventListener('mousedown', play(kickSampler))
 clap.addEventListener('touchstart', play(clapSampler))
 clap.addEventListener('mousedown', play(clapSampler))
-userPad.addEventListener('touchstart', play(userSampler))
-userPad.addEventListener('mousedown', play(userSampler))
-userPad.addEventListener('touchend', stop(userSampler))
-userPad.addEventListener('mouseup', stop(userSampler))
+userPad.addEventListener('touchstart', preventDefaultThen(() => playBuffer(userBuffer)))
+userPad.addEventListener('mousedown', preventDefaultThen(() => playBuffer(userBuffer)))
+// userPad.addEventListener('touchend', preventDefaultThen(() => stopBuffer(userBuffer)))
+// userPad.addEventListener('mouseup', preventDefaultThen(() => stopBuffer(userBuffer)))
 
 document.querySelector('.js-start').addEventListener('click', function start() {
   Tone.start()
 })
 
+const micMeterOutput = document.querySelector('.audio-input-meter')
+const micVolumeMeter = new Tone.Meter({ normalRange: true })
+
+window.micMeterOutput = micMeterOutput
+window.micVolumeMeter = micVolumeMeter
+
+function meterReading() {
+  micMeterOutput.style.setProperty(
+    '--volume-level',
+    `${micVolumeMeter.getValue() * 100}%`,
+  )
+  // console.log('meter reading: ', micVolumeMeter.getValue())
+  window.requestAnimationFrame(meterReading)
+}
+
 const mediaRecorder = new Tone.Recorder()
 const mic = new Tone.UserMedia()
-mic.connect(mediaRecorder)
+window.mic = mic
+mic.open().then(() => {
+  mic.fan(micVolumeMeter, mediaRecorder)
+  window.requestAnimationFrame(meterReading)
+
+  // const audioContext = mic.context._context._nativeAudioContext
+  // const analyserNode = audioContext.createAnalyser()
+  // mic._mediaStream._nativeAudioNode.connect(analyserNode)
+  //
+  // const pcmData = new Float32Array(analyserNode.fftSize)
+  // const onFrame = () => {
+  //   analyserNode.getFloatTimeDomainData(pcmData)
+  //   let sumSquares = 0.0
+  //   for (const amplitude of pcmData) { sumSquares += amplitude * amplitude }
+  //   console.log(Math.sqrt(sumSquares / pcmData.length))
+  //   window.requestAnimationFrame(onFrame)
+  // }
+  // window.requestAnimationFrame(onFrame)
+})
+
+inputSelect.addEventListener('change', ({ target: { value } }) => {
+  mic.close().open(value)
+})
 
 let recording
 
 const pad4 = document.querySelector('.js-pad-4')
 
 async function record() {
-  await mic.open(inputSelect.value)
+  await mic.close().open(inputSelect.value)
   mediaRecorder.start()
   console.log('mediaRecorder.state', mediaRecorder.state)
 }
@@ -90,7 +143,7 @@ async function stopRecording() {
 
 async function stopRecordingAndAssignToSampler(sampler) {
   const recordingBlob = await stopRecording()
-  sampler.add('A1', recordingBlob, () => console.log('blob url loaded'))
+  userBuffer.load(recordingBlob).then(() => console.log(`loaded blob: ${recordingBlob}`))
 }
 
 function assignToUserSampler() {

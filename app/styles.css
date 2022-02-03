@@ -9,6 +9,8 @@
   --pad-min-size: 100px;
   --pad-max-size: 1fr;
   --pad-size: minmax(var(--pad-min-size), var(--pad-max-size));
+
+  --button-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
 }
 
 * {
@@ -45,10 +47,24 @@ button {
   -webkit-appearance: none;
 }
 
-/* Remove excess padding and border in Firefox 4+ */
-&::-moz-focus-inner {
-  border: 0;
-  padding: 0;
+.start-audio {
+  padding: 5px;
+  background-color: lightgrey;
+  margin: 10px;
+  box-shadow: var(--button-shadow);
+}
+
+.audio-input-meter {
+  display: block;
+  height: 20px;
+  margin-left: 10%;
+  margin-right: 10%;
+  background: linear-gradient(
+    to right,
+    rgba(4,212,47,1) 0%,
+    rgba(4,212,47,1) var(--volume-level, 0%),
+    rgba(4,212,47,0) var(--volume-level, 0%)
+  );
 }
 
 .pad-grid {
@@ -73,7 +89,7 @@ button {
   border: none;
   border-radius: 3px;
   background-color: cadetblue;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--button-shadow);
 }
 
 .pad:active {
