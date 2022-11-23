@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/maxrpeterson/sampler#readme",
   "devDependencies": {
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.10",
     "eslint": "^7.32.0",
     "eslint-config-standard": "^16.0.3",
     "eslint-plugin-import": "^2.20.1",
